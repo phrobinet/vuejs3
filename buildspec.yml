@@ -1,0 +1,21 @@
+version: 0.2
+frontend:
+  phases:
+    install:
+      runtime-versions:
+        nodejs: 16
+        commands:
+          - npm install npm@latest-g
+    preBuild:
+      commands:
+        - npm install
+    build:
+      commands:
+        - npm run test --no-watch --no-progres --browser=ChromeHeadlessCI
+        - npm run build
+        - npm run generate
+  artifacts:
+    # IMPORTANT - Please verify your build output directory
+    baseDirectory: dist/
+    files:
+      - "**/*"
